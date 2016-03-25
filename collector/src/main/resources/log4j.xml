@@ -19,12 +19,12 @@
 
 
     <logger name="com.navercorp.pinpoint" additivity="false">
-        <level value="DEBUG"/>
+        <level value="INFO"/>
         <appender-ref ref="console"/>
     </logger>
 
     <logger name="com.navercorp.pinpoint.collector.dao" additivity="false">
-        <level value="TRACE"/>
+        <level value="INFO"/>
         <appender-ref ref="console"/>
     </logger>
 

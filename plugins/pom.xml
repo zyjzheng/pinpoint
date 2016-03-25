@@ -39,6 +39,8 @@
         <module>okhttp</module>
         <module>log4j</module>
         <module>logback</module>
+		<module>dubbo</module>
+        <module>log4j2</module>
     </modules>
 
     <dependencies>
@@ -177,6 +179,17 @@
             <artifactId>pinpoint-logback-plugin</artifactId>
             <version>${project.version}</version>
         </dependency>
+		<dependency>
+            <groupId>com.navercorp.pinpoint</groupId>
+            <artifactId>pinpoint-log4j2-plugin</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.navercorp.pinpoint</groupId>
+            <artifactId>pinpoint-dubbo-plugin</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+		
     </dependencies>
 
     <build>

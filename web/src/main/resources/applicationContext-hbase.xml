@@ -31,6 +31,7 @@
                 <prop key="hbase.ipc.client.socket.timeout.read">${hbase.ipc.client.socket.timeout.read}</prop>
                 <!-- socket write timeout. hbase default: 600000-->
                 <prop key="hbase.ipc.client.socket.timeout.write">${hbase.ipc.client.socket.timeout.write}</prop>
+                <prop key="zookeeper.znode.parent">${zookeeper.znode.parent}</prop>
             </props>
         </property>
         <property name="deleteConnection" value="false"/>

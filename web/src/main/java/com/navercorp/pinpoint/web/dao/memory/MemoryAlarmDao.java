@@ -1,17 +1,15 @@
 /*
  * Copyright 2014 NAVER Corp.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.navercorp.pinpoint.web.dao.memory;
 
@@ -37,13 +35,13 @@ import com.navercorp.pinpoint.web.vo.UserGroup;
  */
 @Repository
 public class MemoryAlarmDao implements AlarmDao {
-    
+
     private final Map<String, Rule> alarmRule = new ConcurrentHashMap<>();
-    private final AtomicInteger ruleIdGenerator  = new AtomicInteger(); 
-    
+    private final AtomicInteger ruleIdGenerator = new AtomicInteger();
+
     @Autowired
     UserGroupDao userGroupDao;
-    
+
     @Override
     public String insertRule(Rule rule) {
         String ruleId = String.valueOf(ruleIdGenerator.getAndIncrement());
@@ -75,20 +73,20 @@ public class MemoryAlarmDao implements AlarmDao {
                 ruleList.add(entry.getValue());
             }
         }
-        
+
         return ruleList;
     }
-    
+
     @Override
     public List<Rule> selectRuleByApplicationId(String applicationId) {
         List<Rule> ruleList = new LinkedList<>();
-        
+
         for (Entry<String, Rule> entry : alarmRule.entrySet()) {
             if (entry.getValue().getApplicationId().equals(applicationId)) {
                 alarmRule.remove(entry.getKey());
             }
         }
-        
+
         return ruleList;
     }
 
@@ -100,7 +98,7 @@ public class MemoryAlarmDao implements AlarmDao {
     @Override
     public void updateUserGroupIdOfRule(UserGroup updatedUserGroup) {
         List<UserGroup> userGroupList = userGroupDao.selectUserGroup();
-        
+
         String beforeUserGroupId = "";
         for (UserGroup userGroup : userGroupList) {
             if (userGroup.getNumber().equals(updatedUserGroup.getNumber())) {
@@ -108,9 +106,9 @@ public class MemoryAlarmDao implements AlarmDao {
                 break;
             }
         }
-        
+
         List<Rule> ruleList = selectRuleByUserGroupId(beforeUserGroupId);
-        
+
         for (Rule rule : ruleList) {
             rule.setuserGroupId(updatedUserGroup.getId());
         }
@@ -122,11 +120,9 @@ public class MemoryAlarmDao implements AlarmDao {
     }
 
     @Override
-    public void deleteCheckerResult(CheckerResult checkerResult) {
-    }
+    public void deleteCheckerResult(CheckerResult checkerResult) {}
 
     @Override
-    public void insertCheckerResult(CheckerResult checkerResult) {
-    }
+    public void insertCheckerResult(CheckerResult checkerResult) {}
 
 }
