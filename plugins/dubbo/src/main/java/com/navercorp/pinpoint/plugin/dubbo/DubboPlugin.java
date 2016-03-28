@@ -66,6 +66,27 @@ public class DubboPlugin implements ProfilerPlugin, TransformTemplateAware {
                     }
                 });
 
+
+        transformTemplate.transform("com.alibaba.dubbo.remoting.http.servlet.DispatcherServlet",
+                new TransformCallback() {
+                    @Override
+                    public byte[] doInTransform(Instrumentor instrumentor, ClassLoader loader,
+                            String className, Class<?> classBeingRedefined,
+                            ProtectionDomain protectionDomain, byte[] classfileBuffer)
+                                    throws InstrumentException {
+                        InstrumentClass target =
+                                instrumentor.getInstrumentClass(loader, className, classfileBuffer);
+
+                        target.getDeclaredMethod("service", "javax.servlet.http.HttpServletRequest",
+                                "javax.servlet.http.HttpServletResponse").addInterceptor(
+                                        "com.navercorp.pinpoint.plugin.dubbo.interceptor.DubboDispatcherInterceptor");
+                        logger.info(
+                                "------------------------------- Success to init DispatcherServletInterceptor");
+                        return target.toBytecode();
+                    }
+                });
+
+
         transformTemplate.transform(
                 "com.alibaba.dubbo.remoting.exchange.support.header.HeaderExchangeHandler",
                 new TransformCallback() {
